@@ -1,6 +1,6 @@
 import pickle
-from werkzeug.contrib.cache import (BaseCache, NullCache, SimpleCache, MemcachedCache,
-                                    GAEMemcachedCache, FileSystemCache)
+from cachelib import (BaseCache, NullCache, SimpleCache, MemcachedCache,
+                                    FileSystemCache)
 from ._compat import range_type
 
 
@@ -40,10 +40,6 @@ def saslmemcached(app, config, args, kwargs):
                        password=config['CACHE_MEMCACHED_PASSWORD'],
                        key_prefix=config['CACHE_KEY_PREFIX']))
     return SASLMemcachedCache(*args, **kwargs)
-
-def gaememcached(app, config, args, kwargs):
-    kwargs.update(dict(key_prefix=config['CACHE_KEY_PREFIX']))
-    return GAEMemcachedCache(*args, **kwargs)
 
 def filesystem(app, config, args, kwargs):
     args.insert(0, config['CACHE_DIR'])
